@@ -7,35 +7,36 @@ import { WinAnalysis } from './analyzers/WinAnalysis';
 import { ConsoleReport } from './reports/ConsoleReport';
 import { HtmlReport } from './reports/HtmlReport';
 
+// Composition example
 const matchReader = MatchReader1.fromCsv('football.csv');
 matchReader.load();
 
 const summary = new Summary(new WinAnalysis('Man United'), new ConsoleReport());
 summary.buildAndPrintReport(matchReader.matches);
 
-const summary1 = new Summary(new WinAnalysis('Crystal Palace'), new HtmlReport());
+const summary1 = new Summary(
+	new WinAnalysis('Crystal Palace'),
+	new HtmlReport()
+);
 summary1.buildAndPrintReport(matchReader.matches);
 
 const summary2 = Summary.winsAnalysisWithHtmlReport('Arsenal');
 summary2.buildAndPrintReport(matchReader.matches);
 
-//!==============================================================================
-
-
+// Inheritance example
 const reader = new MatchReader('football.csv');
 reader.read();
 
 let manUnitedWins = 0;
 
 for (const match of reader.data) {
-    if (match[2] === 'Man United' && match[5] === MatchResult.HomeWin) {
-        manUnitedWins++;
-    } else if (match[2] === 'Man United' && match[5] === MatchResult.AwayWin) {
-        manUnitedWins++;
-    }
+	if (match[2] === 'Man United' && match[5] === MatchResult.HomeWin) {
+		manUnitedWins++;
+	} else if (match[2] === 'Man United' && match[5] === MatchResult.AwayWin) {
+		manUnitedWins++;
+	}
 }
 
-console.log(`Inheritance Example -> Manchester United won ${manUnitedWins} games`);
-
-
-
+console.log(
+	`Inheritance Example -> Manchester United won ${manUnitedWins} games`
+);
