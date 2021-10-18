@@ -2,27 +2,24 @@ import { stringToDate } from '../utils';
 import { MatchResult } from '../typesValidations/MatchResult';
 import { MatchData } from '../typesValidations/MatchTypes';
 import { CsvFileReader } from './CsvFileReader';
-
 /**
  * This Application consists in the following functionalities:
  * 1 - Read external file.
  * 2 - Format and display the file
  */
 
-/**
- * COMPOSITION IMPLEMENTATION
- * The MatchReader becomes the main class and delegates functionalities through interfaces.
- * It delegated the Read External File functionality because it can be different types of external files.
- * For the delegated functionality to be used in the MatchReader main class, it has to implement the interface DataReader.
- * The interface requires a read method and a data property, that will be used in the MatchReader load method.
- * The read method must format the external file and save it into the data property.
- * The load method will call the read method and access the data property and map through it to format it to display.
- */
-
 interface DataReader {
 	read(): void;
 	data: string[][];
 }
+/**
+ * COMPOSITION IMPLEMENTATION
+ * The MatchReader becomes the main class and delegates its functionalities by requiring compliance to INTERFACES in its properties, arguments or functions. WE HAVE ON "HOST CLASS THAT BRINGS IN DIFFERENT FUNCTIONALITIES THROUGH DIFFERENT CLASSES"
+ * Read External File can have different implementations (as accepting diffent files formats) as long as it complies to the DataReader Interface.
+ * The interface requires a read method and a data property, that will be used in the MatchReader load method.
+ * The read method formats the external file and save result into the data property.
+ * The load method will call the read method and access the data property and map through it to format it to display.
+ */
 export class MatchReader {
 	/**
 	 * Step 2
